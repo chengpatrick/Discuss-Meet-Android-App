@@ -47,7 +47,7 @@ public class SignUpActivity extends AppCompatActivity {
 
         userEditText=findViewById(R.id.editTextTextPersonName3);
         emailEditText=findViewById(R.id.editTextTextEmailAddress);
-        passwordEditText=findViewById(R.id.repassword);
+        passwordEditText=findViewById(R.id.password);
 
         progressBar = findViewById(R.id.progressBar2);
         progressBar.setVisibility(View.GONE);

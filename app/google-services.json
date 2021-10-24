@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "852679278992",
+    "firebase_url": "https://checkpoint4for5236-default-rtdb.firebaseio.com",
+    "project_id": "checkpoint4for5236",
+    "storage_bucket": "checkpoint4for5236.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:852679278992:android:c2d66fb4b25c0b87163315",
+        "android_client_info": {
+          "package_name": "com.example.checkpoint3for5236"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "852679278992-6kihjqpo0n58ea3vmqga35n1jmjbv0vp.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAPWE1JQTqhHwdDCOwBdZCxm89-E1SuRnk"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "852679278992-6kihjqpo0n58ea3vmqga35n1jmjbv0vp.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
