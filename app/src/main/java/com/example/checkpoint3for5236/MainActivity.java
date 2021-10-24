@@ -10,6 +10,8 @@ import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
+
 public class MainActivity extends AppCompatActivity {
     private static final  String TAG="MainActivity";
 
@@ -26,6 +28,7 @@ public class MainActivity extends AppCompatActivity {
 
         Button loginbtn=(Button)  findViewById(R.id.signinButton);
         Button fragmenttest=(Button) findViewById(R.id.button);
+        Button gogSignIn=(Button) findViewById(R.id.button3);
 
         loginbtn.setOnClickListener(new View.OnClickListener() {
             @Override
