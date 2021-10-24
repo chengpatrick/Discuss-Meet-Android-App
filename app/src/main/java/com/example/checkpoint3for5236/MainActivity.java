@@ -11,9 +11,12 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 
 public class MainActivity extends AppCompatActivity {
     private static final  String TAG="MainActivity";
+    private FirebaseAuth mAuth;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -28,7 +31,8 @@ public class MainActivity extends AppCompatActivity {
 
         Button loginbtn=(Button)  findViewById(R.id.signinButton);
         Button fragmenttest=(Button) findViewById(R.id.button);
-        Button gogSignIn=(Button) findViewById(R.id.button3);
+
+        mAuth = FirebaseAuth.getInstance();
 
         loginbtn.setOnClickListener(new View.OnClickListener() {
             @Override
