@@ -10,6 +10,9 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Checkpoint3for5236">
         <activity
+            android:name=".ForgotPassword"
+            android:exported="true" />
+        <activity
             android:name=".FragmentTest"
             android:exported="true" />
         <activity

@@ -25,6 +25,7 @@ public class MainActivity extends AppCompatActivity {
     private static final  String TAG="MainActivity";
     private FirebaseAuth mAuth;
     private ProgressBar progressBar;
+    private TextView forgotPassword;
 
     private EditText editTextEmail, editTextPassword;
 
@@ -37,6 +38,9 @@ public class MainActivity extends AppCompatActivity {
 
 //        TextView username=(TextView) findViewById(R.id.editTextTextPersonName3);
 //        TextView password=(TextView) findViewById(R.id.editTextTextPassword3);
+
+        forgotPassword = (TextView) findViewById(R.id.forgotPw);
+
         TextView signUp = (TextView) findViewById(R.id.textView3);
 
         Button loginbtn=(Button)  findViewById(R.id.signinButton);
@@ -76,6 +80,13 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View view){
                 startActivity(new Intent(MainActivity.this, FragmentTest.class));
+            }
+        });
+
+        forgotPassword.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(MainActivity.this, ForgotPassword.class));
             }
         });
     }
