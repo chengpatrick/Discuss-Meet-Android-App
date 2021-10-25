@@ -3,6 +3,7 @@ import android.content.Intent;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -32,7 +33,9 @@ public class ChooseDiscussionBoardActivity extends AppCompatActivity {
     private static final  String TAG="ChooseDiscussionBoardActivity";
 
     private TextView userNameText;
-    private Button deleteButton;
+    private Button deleteButton, UpdateButton;
+    private DatabaseReference mDatabase;
+    private EditText ChangeNameEditText;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -55,12 +58,14 @@ public class ChooseDiscussionBoardActivity extends AppCompatActivity {
         items.add(new BoardItem("CSE 3541"));
         items.add(new BoardItem("CSE 3341"));
 
+        ChangeNameEditText = (EditText) findViewById(R.id.ChangeNameEditText);
 
         RecyclerView recyclerView = findViewById(R.id.recyclerView);
 
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         recyclerView.setAdapter(new BoardAdaptor(getApplicationContext(), items));
 
+        mDatabase = FirebaseDatabase.getInstance().getReference();
 
         FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
 
@@ -112,6 +117,35 @@ public class ChooseDiscussionBoardActivity extends AppCompatActivity {
                                 }
                             }
                         });
+            }
+        });
+
+        UpdateButton = (Button) findViewById(R.id.UpdateNameBt);
+
+        UpdateButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                String changeName = ChangeNameEditText.getText().toString().trim();
+                if (changeName.isEmpty()) {
+                    ChangeNameEditText.setError("User name is required");
+                    ChangeNameEditText.requestFocus();
+                    return;
+                }
+                mDatabase.child("Users").child(user.getUid()).child("name").setValue(changeName);
+                String userid = user.getUid();
+                DatabaseReference reference = FirebaseDatabase.getInstance().getReference("Users");
+                reference.child(userid).addListenerForSingleValueEvent(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(@NonNull DataSnapshot snapshot) {
+                        String name = snapshot.getValue(User.class).getName();
+                        userNameText.setText(name);
+                    }
+
+                    @Override
+                    public void onCancelled(@NonNull DatabaseError error) {
+
+                    }
+                });
             }
         });
     }
