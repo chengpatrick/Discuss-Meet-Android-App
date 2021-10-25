@@ -6,18 +6,33 @@ import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.os.Bundle;
 
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
+
 import java.util.ArrayList;
 import java.util.List;
+
 
 public class ChooseDiscussionBoardActivity extends AppCompatActivity {
 
     private static final  String TAG="ChooseDiscussionBoardActivity";
+
+    private TextView userNameText;
+    private Button deleteButton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -46,6 +61,59 @@ public class ChooseDiscussionBoardActivity extends AppCompatActivity {
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         recyclerView.setAdapter(new BoardAdaptor(getApplicationContext(), items));
 
+
+        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+
+        userNameText = (TextView) findViewById(R.id.textViewUserName);
+
+        if(user != null){
+            String userid = user.getUid();
+            DatabaseReference reference = FirebaseDatabase.getInstance().getReference("Users");
+            reference.child(userid).addListenerForSingleValueEvent(new ValueEventListener() {
+                @Override
+                public void onDataChange(@NonNull DataSnapshot snapshot) {
+                    String name = snapshot.getValue(User.class).getName();
+                    userNameText.setText(name);
+                }
+
+                @Override
+                public void onCancelled(@NonNull DatabaseError error) {
+
+                }
+            });
+
+        }
+
+        deleteButton = (Button) findViewById(R.id.deleteUserButton);
+
+        deleteButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                user.delete()
+                        .addOnCompleteListener(new OnCompleteListener<Void>() {
+                            @Override
+                            public void onComplete(@NonNull Task<Void> task) {
+                                if (task.isSuccessful()) {
+                                    Log.d(TAG, "User account deleted.");
+                                    Toast.makeText(ChooseDiscussionBoardActivity.this, "User account deleted", Toast.LENGTH_LONG).show();
+                                    String userid = user.getUid();
+                                    DatabaseReference reference = FirebaseDatabase.getInstance().getReference("Users");
+                                    reference.child(userid).addListenerForSingleValueEvent(new ValueEventListener() {
+                                        @Override
+                                        public void onDataChange(@NonNull DataSnapshot snapshot) {
+                                            snapshot.getRef().removeValue();
+                                        }
+
+                                        @Override
+                                        public void onCancelled(@NonNull DatabaseError error) {
+
+                                        }
+                                    });
+                                }
+                            }
+                        });
+            }
+        });
     }
 
     @Override
