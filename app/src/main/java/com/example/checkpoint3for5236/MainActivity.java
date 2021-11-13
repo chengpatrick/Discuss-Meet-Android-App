@@ -36,9 +36,6 @@ public class MainActivity extends AppCompatActivity {
 
         Log.i(TAG,"onCreate");
 
-//        TextView username=(TextView) findViewById(R.id.editTextTextPersonName3);
-//        TextView password=(TextView) findViewById(R.id.editTextTextPassword3);
-
         forgotPassword = (TextView) findViewById(R.id.forgotPw);
 
         TextView signUp = (TextView) findViewById(R.id.textView3);

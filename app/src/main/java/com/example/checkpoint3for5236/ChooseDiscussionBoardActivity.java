@@ -38,6 +38,11 @@ public class ChooseDiscussionBoardActivity extends AppCompatActivity {
     private DatabaseReference mDatabase;
     private EditText ChangeNameEditText;
 
+    private ClassAdapter mAdapter;
+    private RecyclerView view;
+    private ArrayList<Class> items;
+    private RecyclerView.LayoutManager mLayoutManager;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -45,7 +50,6 @@ public class ChooseDiscussionBoardActivity extends AppCompatActivity {
         setContentView(R.layout.activity_choose_discussion_board);
 
 //        Button course = (Button) findViewById(R.id.button);
-        RecyclerView view = (RecyclerView) findViewById((R.id.recyclerView));
 
 //        course.setOnClickListener(new View.OnClickListener() {
 //            @Override
@@ -54,17 +58,18 @@ public class ChooseDiscussionBoardActivity extends AppCompatActivity {
 //            }
 //        });
 
-        List<BoardItem> items = new ArrayList<BoardItem>();
-        items.add(new BoardItem("CSE 5236"));
-        items.add(new BoardItem("CSE 3541"));
-        items.add(new BoardItem("CSE 3341"));
+        createList();
+        buildRecyclerView();
+
 
         ChangeNameEditText = (EditText) findViewById(R.id.ChangeNameEditText);
 
         RecyclerView recyclerView = findViewById(R.id.recyclerView);
 
-        recyclerView.setLayoutManager(new LinearLayoutManager(this));
-        recyclerView.setAdapter(new BoardAdaptor(getApplicationContext(), items));
+
+
+        //recyclerView.setLayoutManager(new LinearLayoutManager(this));
+        //recyclerView.setAdapter(new BoardAdaptor(getApplicationContext(), items));
 
         mDatabase = FirebaseDatabase.getInstance().getReference();
 
@@ -158,6 +163,34 @@ public class ChooseDiscussionBoardActivity extends AppCompatActivity {
                 startActivity(new Intent(ChooseDiscussionBoardActivity.this, AddClassActivity.class));
             }
         });
+    }
+
+    private void createList() {
+        items=new ArrayList<>();
+        items.add(new Class("CSE 5236"));
+        items.add(new Class("CSE 3541"));
+        items.add(new Class("CSE 3341"));
+    }
+
+    private void buildRecyclerView() {
+        view = (RecyclerView) findViewById((R.id.recyclerView));
+        view.setHasFixedSize(true);
+        mLayoutManager = new LinearLayoutManager(this);
+        mAdapter = new ClassAdapter(items);
+
+        view.setLayoutManager(mLayoutManager);
+        view.setAdapter(mAdapter);
+
+        mAdapter.setOnItemClickListener(new ClassAdapter.OnItemClickListener() {
+            @Override
+            public void onItemClick(int position) {
+                enterClass(position);
+            }
+        });
+    }
+
+    private void enterClass(int position) {
+        Log.i(TAG, "Position is "+position);
     }
 
     @Override
