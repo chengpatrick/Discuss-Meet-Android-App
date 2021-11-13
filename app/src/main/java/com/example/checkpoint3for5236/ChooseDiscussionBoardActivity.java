@@ -34,6 +34,7 @@ public class ChooseDiscussionBoardActivity extends AppCompatActivity {
 
     private TextView userNameText;
     private Button deleteButton, UpdateButton;
+    private Button addButton;
     private DatabaseReference mDatabase;
     private EditText ChangeNameEditText;
 
@@ -146,6 +147,15 @@ public class ChooseDiscussionBoardActivity extends AppCompatActivity {
 
                     }
                 });
+            }
+        });
+
+        addButton = (Button) findViewById(R.id.addClassButton);
+
+        addButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(ChooseDiscussionBoardActivity.this, AddClassActivity.class));
             }
         });
     }
