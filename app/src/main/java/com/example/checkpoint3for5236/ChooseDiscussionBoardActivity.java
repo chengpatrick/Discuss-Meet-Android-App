@@ -59,7 +59,7 @@ public class ChooseDiscussionBoardActivity extends AppCompatActivity {
 //        });
 
         createList();
-        buildRecyclerView();
+        //buildRecyclerView();
 
 
         ChangeNameEditText = (EditText) findViewById(R.id.ChangeNameEditText);
@@ -166,13 +166,35 @@ public class ChooseDiscussionBoardActivity extends AppCompatActivity {
     }
 
     private void createList() {
+        DatabaseReference classRef = FirebaseDatabase.getInstance().getReference("Classes");
+
         items=new ArrayList<>();
-        items.add(new Class("CSE 5236"));
-        items.add(new Class("CSE 3541"));
-        items.add(new Class("CSE 3341"));
+
+        classRef.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+
+                for (DataSnapshot dsp: snapshot.getChildren()){
+                    Class currentClass = dsp.getValue(Class.class);
+//                    String className = currentClass.getClassname();
+                    items.add(currentClass);
+//                    Log.i(TAG, className);
+//                    Log.i(TAG, "Items: " + items.toString());
+                }
+                buildRecyclerView(items);
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
+//        items.add(new Class("CSE 5236"));
+//        items.add(new Class("CSE 3541"));
+//        items.add(new Class("CSE 3341"));
     }
 
-    private void buildRecyclerView() {
+    private void buildRecyclerView(ArrayList<Class> items) {
         view = (RecyclerView) findViewById((R.id.recyclerView));
         view.setHasFixedSize(true);
         mLayoutManager = new LinearLayoutManager(this);
