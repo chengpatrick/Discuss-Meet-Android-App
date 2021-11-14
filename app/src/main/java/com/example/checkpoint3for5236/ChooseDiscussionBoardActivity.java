@@ -84,7 +84,7 @@ public class ChooseDiscussionBoardActivity extends AppCompatActivity {
                 @Override
                 public void onDataChange(@NonNull DataSnapshot snapshot) {
                     String name = snapshot.getValue(User.class).getName();
-                    userNameText.setText(name);
+                    userNameText.setText("Hello "+name+" !");
                 }
 
                 @Override
@@ -189,9 +189,6 @@ public class ChooseDiscussionBoardActivity extends AppCompatActivity {
 
             }
         });
-//        items.add(new Class("CSE 5236"));
-//        items.add(new Class("CSE 3541"));
-//        items.add(new Class("CSE 3341"));
     }
 
     private void buildRecyclerView(ArrayList<Class> items) {
