@@ -8,20 +8,30 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.TextView;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
 
 public class ChooseDiscussionActivity extends AppCompatActivity {
 
     private static final  String TAG="ChooseDiscussionActivity";
     private Button backButton;
+    private TextView titleText;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         Log.i(TAG, "onCreate");
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_choose_discussion);
+
+        Bundle bundle = getIntent().getExtras();
+
+        String className = bundle.getString("classname");
+
+        titleText=findViewById(R.id.textView4);
+        titleText.setText(className.toUpperCase(Locale.ROOT)+" Discussions");
 
         RecyclerView recyclerView = findViewById(R.id.recyclerview);
 

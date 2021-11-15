@@ -2,6 +2,7 @@ package com.example.checkpoint3for5236;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -11,6 +12,7 @@ public class ChooseDiscussionOrMeetingActivity extends AppCompatActivity {
 
     TextView boardName;
     private Button backButton;
+    private Button joinButton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -35,5 +37,20 @@ public class ChooseDiscussionOrMeetingActivity extends AppCompatActivity {
             }
         }
         );
+
+        joinButton=findViewById(R.id.joinDiscussion);
+        joinButton.setOnClickListener(
+                new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        Intent i = new Intent(ChooseDiscussionOrMeetingActivity.this, ChooseDiscussionActivity.class);
+                        Bundle bundle1 = new Bundle();
+                        bundle1.putString("classname", className);
+                        i.putExtras(bundle1);
+                        startActivity(i);
+                    }
+                }
+        );
+
     }
 }
