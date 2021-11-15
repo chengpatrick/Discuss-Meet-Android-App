@@ -44,16 +44,17 @@ public class ChooseDiscussionActivity extends AppCompatActivity {
         ));
         recyclerView.setAdapter(new MyAdapter(getApplicationContext(),items));
 
-        // back button onclick
+        // button to return to choose discussion board
         backButton=(Button)findViewById(R.id.BackToDisBdBtn);
         backButton.setOnClickListener(new View.OnClickListener() {
-                                          @Override
-                                          public void onClick(View view) {
-                                              // go back to last screen
-                                              finish();
-                                          }
-                                      }
+            @Override
+            public void onClick(View view) {
+                    //destroy
+                    finish();
+                }
+            }
         );
+
     }
 
     @Override
