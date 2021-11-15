@@ -8,11 +8,11 @@
 
     <TextView
         android:id="@+id/inPersonMeeting"
-        android:layout_width="215dp"
-        android:layout_height="71dp"
+        android:layout_width="188dp"
+        android:layout_height="81dp"
         android:text="TextView"
         android:textAlignment="center"
-        android:textSize="20sp"
+        android:textSize="25sp"
         android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -69,7 +69,7 @@
         app:layout_constraintHorizontal_bias="0.458"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.803" />
+        app:layout_constraintVertical_bias="0.814" />
 
     <Button
         android:id="@+id/BackFromInPersonToMeeting"
