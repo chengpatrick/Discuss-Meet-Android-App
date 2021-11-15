@@ -74,16 +74,10 @@ public class ChooseDiscussionOrMeetingActivity extends AppCompatActivity {
                         Bundle bundle2 = new Bundle();
                         bundle2.putString("classname", className);
                         i.putExtras(bundle2);
-                        addMeeting();
                         startActivity(i);
                     }
                 }
         );
 
-    }
-
-    private void addMeeting(){
-        rootNode = FirebaseDatabase.getInstance();
-        reference = rootNode.getReference("Classes").child(className).child("Meetings");
     }
 }

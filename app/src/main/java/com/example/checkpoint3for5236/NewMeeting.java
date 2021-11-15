@@ -20,6 +20,8 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
+import java.util.Calendar;
+import java.util.Date;
 import java.util.Locale;
 import java.util.Random;
 
@@ -35,6 +37,7 @@ public class NewMeeting extends AppCompatActivity {
     String className, title;
 
     private FirebaseAuth mAuth;
+    private Date time;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -96,12 +99,13 @@ public class NewMeeting extends AppCompatActivity {
         String host= mAuth.getCurrentUser().getUid();
 
         title=meetTitle.getText().toString();
+        time= Calendar.getInstance().getTime();
 
         int radioId= rGroup.getCheckedRadioButtonId();
         rButton=findViewById((radioId));
         String type=rButton.getText().toString();
 
-        Meeting newMeeting= new Meeting(title,host,type);
+        Meeting newMeeting= new Meeting(title,host,type,time);
         reference.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot snapshot) {
@@ -111,7 +115,9 @@ public class NewMeeting extends AppCompatActivity {
                     return;
                 }else {
                     reference.child("M: " + className + " meeting, " + title).child("type").setValue(type);
+                    reference.child("M: " + className + " meeting, " + title).child("title").setValue(title);
                     reference.child("M: " + className + " meeting, " + title).child("userID").setValue(host);
+                    reference.child("M: " + className + " meeting, " + title).child("time").setValue(time);
                     finish();
                     startActivity(new Intent(NewMeeting.this, ChooseMeetActivity.class));
                 }
