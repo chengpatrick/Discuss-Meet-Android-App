@@ -49,7 +49,7 @@ public class ChooseDiscussionActivity extends AppCompatActivity {
         backButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                //destroy
+                    //destroy
                     finish();
                 }
             }

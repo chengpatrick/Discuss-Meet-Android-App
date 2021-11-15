@@ -197,7 +197,7 @@ public class ChooseDiscussionBoardActivity extends AppCompatActivity {
     private void enterClass(int position) {
 
         Log.i(TAG, "Position is "+position+", class is "+items.get(position).getClassname());
-        startActivity(new Intent(ChooseDiscussionBoardActivity.this,ChooseDiscussionActivity.class));
+        startActivity(new Intent(ChooseDiscussionBoardActivity.this,DiscussionBoardActivity.class));
 
     }
 
