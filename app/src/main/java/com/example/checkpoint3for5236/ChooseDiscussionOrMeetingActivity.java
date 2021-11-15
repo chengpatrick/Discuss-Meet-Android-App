@@ -3,11 +3,14 @@ package com.example.checkpoint3for5236;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
+import android.view.View;
+import android.widget.Button;
 import android.widget.TextView;
 
 public class ChooseDiscussionOrMeetingActivity extends AppCompatActivity {
 
     TextView boardName;
+    private Button backButton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -21,5 +24,16 @@ public class ChooseDiscussionOrMeetingActivity extends AppCompatActivity {
         String className = bundle.getString("classname");
 
         boardName.setText(className + " Discussion Board");
+
+        // button to return to choose discussion board
+        backButton=(Button)findViewById(R.id.BackToDisBdBtn);
+        backButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                //destroy
+                finish();
+            }
+        }
+        );
     }
 }
