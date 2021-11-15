@@ -132,7 +132,9 @@ public class NewMeeting extends AppCompatActivity {
 
         String location = locationText.getText().toString();
         if(location.equals("") && type.equals("In-Person")){
-            Toast.makeText(this, "Please enter a location", Toast.LENGTH_SHORT);
+            locationText.setError("Please enter a location");
+            locationText.requestFocus();
+            return;
         }
 
         Meeting newMeeting= new Meeting(title,host,type,time, location);

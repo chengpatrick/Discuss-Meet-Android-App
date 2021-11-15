@@ -19,7 +19,7 @@ import com.google.firebase.database.ValueEventListener;
 public class InPersonMeetingActivity extends AppCompatActivity {
 
     private TextView meetingText, titleText, hostText, locationText;
-    private Button findLocation;
+    private Button findLocation, backButton;
     private String className, childName;
 
     @Override
@@ -33,15 +33,23 @@ public class InPersonMeetingActivity extends AppCompatActivity {
         locationText = findViewById(R.id.meetingLocation);
 
         findLocation = findViewById(R.id.searchLocation);
+        backButton = findViewById(R.id.backFromInPersonToMeeting);
+        backButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                finish();
+            }
+        });
 
-//        Bundle bundle = getIntent().getExtras();
-//        className = bundle.getString("classname");
-//        childName = bundle.getString("childname");
+
+        Bundle bundle = getIntent().getExtras();
+        className = bundle.getString("classname");
+        childName = bundle.getString("childname");
 
 
-        className = "Test";
-        childName = "M: Test meeting, Sleep";
-        meetingText.setText(className + " In-Person Meeting");
+//        className = "Test";
+//        childName = "M: Test meeting, Sleep";
+//        meetingText.setText(className + " In-Person Meeting");
 
         DatabaseReference ref = FirebaseDatabase.getInstance().getReference("Classes").child(className).child("Meetings").child(childName);
         ref.addValueEventListener(new ValueEventListener() {
