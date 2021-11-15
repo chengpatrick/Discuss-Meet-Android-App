@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
@@ -48,7 +49,23 @@ public class InPersonMeetingActivity extends AppCompatActivity {
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 Meeting meeting = snapshot.getValue(Meeting.class);
                 titleText.setText("Title: " + meeting.getTitle());
-                hostText.setText("Host: " + meeting.getHost());
+
+                String userId = meeting.getHost();
+                Log.i("TEST", "USERID: " + userId);
+                DatabaseReference userRef = FirebaseDatabase.getInstance().getReference("Users").child(userId);
+                userRef.addValueEventListener(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(@NonNull DataSnapshot snapshot) {
+                        User hostUser = snapshot.getValue(User.class);
+                        hostText.setText("Host: " + hostUser.getName());
+                    }
+
+                    @Override
+                    public void onCancelled(@NonNull DatabaseError error) {
+
+                    }
+                });
+
                 locationText.setText(meeting.getLocation());
             }
 
@@ -63,7 +80,6 @@ public class InPersonMeetingActivity extends AppCompatActivity {
             public void onClick(View view) {
                 Intent i = new Intent(InPersonMeetingActivity.this, FragmentTest.class);
                 String locationName = locationText.getText().toString();
-
                 Bundle bundle = new Bundle();
                 bundle.putString("location", locationName);
                 i.putExtras(bundle);
