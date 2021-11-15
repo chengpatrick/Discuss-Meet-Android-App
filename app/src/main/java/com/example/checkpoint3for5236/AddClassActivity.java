@@ -62,6 +62,7 @@ public class AddClassActivity extends AppCompatActivity {
                     return;
                 }else{
                     reference.child(classname).setValue(newClass);
+
                 }
             }
 
