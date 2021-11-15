@@ -25,7 +25,6 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
-import java.util.List;
 
 
 public class ChooseDiscussionBoardActivity extends AppCompatActivity {
@@ -190,6 +189,15 @@ public class ChooseDiscussionBoardActivity extends AppCompatActivity {
             @Override
             public void onItemClick(int position) {
                 enterClass(position);
+                // Pass a value to next activity
+                Intent i = new Intent(ChooseDiscussionBoardActivity.this, ChooseDiscussionOrMeetingActivity.class);
+                String className = items.get(position).getClassname();
+
+                Bundle bundle = new Bundle();
+                bundle.putString("classname", className);
+
+                i.putExtras(bundle);
+                startActivity(i);
             }
         });
     }
