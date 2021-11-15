@@ -6,6 +6,8 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
+import android.widget.Button;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -13,6 +15,7 @@ import java.util.List;
 public class ChooseDiscussionActivity extends AppCompatActivity {
 
     private static final  String TAG="ChooseDiscussionActivity";
+    private Button backButton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -23,23 +26,35 @@ public class ChooseDiscussionActivity extends AppCompatActivity {
         RecyclerView recyclerView = findViewById(R.id.recyclerview);
 
         List<Item> items = new ArrayList<Item>();
-        items.add(new Item("About HW1","I have a question about the first pro..."));
-        items.add(new Item("About HW2","I have a question about the first pro..."));
-        items.add(new Item("About HW3","I have a question about the first pro..."));
-        items.add(new Item("About HW4","I have a question about the first pro..."));
-        items.add(new Item("About HW5","I have a question about the first pro..."));
-        items.add(new Item("About HW6","I have a question about the first pro..."));
-        items.add(new Item("About HW1","I have a question about the first pro..."));
-        items.add(new Item("About HW2","I have a question about the first pro..."));
-        items.add(new Item("About HW3","I have a question about the first pro..."));
-        items.add(new Item("About HW4","I have a question about the first pro..."));
-        items.add(new Item("About HW5","I have a question about the first pro..."));
-        items.add(new Item("About HW6","I have a question about the first pro..."));
+//        items.add(new Item("About HW1","I have a question about the first pro..."));
+//        items.add(new Item("About HW2","I have a question about the first pro..."));
+//        items.add(new Item("About HW3","I have a question about the first pro..."));
+//        items.add(new Item("About HW4","I have a question about the first pro..."));
+//        items.add(new Item("About HW5","I have a question about the first pro..."));
+//        items.add(new Item("About HW6","I have a question about the first pro..."));
+//        items.add(new Item("About HW1","I have a question about the first pro..."));
+//        items.add(new Item("About HW2","I have a question about the first pro..."));
+//        items.add(new Item("About HW3","I have a question about the first pro..."));
+//        items.add(new Item("About HW4","I have a question about the first pro..."));
+//        items.add(new Item("About HW5","I have a question about the first pro..."));
+//        items.add(new Item("About HW6","I have a question about the first pro..."));
 
 
         recyclerView.setLayoutManager(new LinearLayoutManager(this
         ));
         recyclerView.setAdapter(new MyAdapter(getApplicationContext(),items));
+
+        // button to return to choose discussion board
+        backButton=(Button)findViewById(R.id.BackToDisBdBtn);
+        backButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                //destroy
+                    finish();
+                }
+            }
+        );
+
     }
 
     @Override

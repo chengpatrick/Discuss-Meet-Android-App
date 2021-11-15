@@ -48,15 +48,6 @@ public class ChooseDiscussionBoardActivity extends AppCompatActivity {
         Log.i(TAG, "onCreate");
         setContentView(R.layout.activity_choose_discussion_board);
 
-//        Button course = (Button) findViewById(R.id.button);
-
-//        course.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-//                startActivity(new Intent(ChooseDiscussionActivity.this, DiscussionBoardActivity.class));
-//            }
-//        });
-
         createList();
         //buildRecyclerView();
 
@@ -64,11 +55,6 @@ public class ChooseDiscussionBoardActivity extends AppCompatActivity {
         ChangeNameEditText = (EditText) findViewById(R.id.ChangeNameEditText);
 
         RecyclerView recyclerView = findViewById(R.id.recyclerView);
-
-
-
-        //recyclerView.setLayoutManager(new LinearLayoutManager(this));
-        //recyclerView.setAdapter(new BoardAdaptor(getApplicationContext(), items));
 
         mDatabase = FirebaseDatabase.getInstance().getReference();
 
@@ -217,7 +203,10 @@ public class ChooseDiscussionBoardActivity extends AppCompatActivity {
     }
 
     private void enterClass(int position) {
-        Log.i(TAG, "Position is "+position);
+
+        Log.i(TAG, "Position is "+position+", class is "+items.get(position).getClassname());
+        startActivity(new Intent(ChooseDiscussionBoardActivity.this,ChooseDiscussionActivity.class));
+
     }
 
     @Override
