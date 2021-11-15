@@ -188,24 +188,23 @@ public class ChooseDiscussionBoardActivity extends AppCompatActivity {
         mAdapter.setOnItemClickListener(new ClassAdapter.OnItemClickListener() {
             @Override
             public void onItemClick(int position) {
-                enterClass(position);
-                // Pass a value to next activity
-                Intent i = new Intent(ChooseDiscussionBoardActivity.this, ChooseDiscussionOrMeetingActivity.class);
-                String className = items.get(position).getClassname();
-
-                Bundle bundle = new Bundle();
-                bundle.putString("classname", className);
-
-                i.putExtras(bundle);
-                startActivity(i);
+                enterClass(position, items);
             }
         });
     }
 
-    private void enterClass(int position) {
+    private void enterClass(int position, ArrayList<Class> items) {
 
         Log.i(TAG, "Position is "+position+", class is "+items.get(position).getClassname());
+        //startActivity(new Intent(ChooseDiscussionBoardActivity.this,ChooseDiscussionActivity.class));
+        Intent i = new Intent(ChooseDiscussionBoardActivity.this, ChooseDiscussionOrMeetingActivity.class);
+        String className = items.get(position).getClassname();
 
+        Bundle bundle = new Bundle();
+        bundle.putString("classname", className);
+
+        i.putExtras(bundle);
+        startActivity(i);
     }
 
     @Override
