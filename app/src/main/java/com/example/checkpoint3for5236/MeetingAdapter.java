@@ -59,7 +59,7 @@ public class MeetingAdapter extends RecyclerView.Adapter<MeetingAdapter.MeetingV
     public void onBindViewHolder(MeetingViewHolder holder, int position) {
         Meeting currentItem = mMeetingList.get(position);
 
-        holder.mTextView1.setText(currentItem.getMeetingTitle());
+        holder.mTextView1.setText(currentItem.getTitle());
     }
 
     @Override

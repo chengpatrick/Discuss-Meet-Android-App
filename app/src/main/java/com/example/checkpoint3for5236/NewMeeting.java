@@ -8,6 +8,8 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.CompoundButton;
+import android.widget.EditText;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.TextView;
@@ -30,7 +32,8 @@ public class NewMeeting extends AppCompatActivity {
     private TextView titleText, meetTitle;
     private Button backButton,createButton;
     private RadioGroup rGroup;
-    private RadioButton rButton;
+    private RadioButton rButton, rb2, rb3;
+    private EditText locationText;
 
     FirebaseDatabase rootNode;
     DatabaseReference reference;
@@ -68,6 +71,28 @@ public class NewMeeting extends AppCompatActivity {
 
         //radio group and button
         rGroup=findViewById(R.id.radiogroup);
+        rb2 = findViewById(R.id.radioButton2);
+        rb3 = findViewById(R.id.radioButton3);
+        locationText = findViewById(R.id.editLocation);
+        locationText.setVisibility(View.INVISIBLE);
+        rb2.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                if(isChecked){
+                    locationText.setVisibility(View.VISIBLE);
+                }
+            }
+        });
+        rb3.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                if(isChecked){
+                    locationText.setVisibility(View.INVISIBLE);
+                    locationText.setText("");
+                }
+            }
+        });
+
         createButton=findViewById(R.id.button6);
         createButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -105,7 +130,12 @@ public class NewMeeting extends AppCompatActivity {
         rButton=findViewById((radioId));
         String type=rButton.getText().toString();
 
-        Meeting newMeeting= new Meeting(title,host,type,time);
+        String location = locationText.getText().toString();
+        if(location.equals("") && type.equals("In-Person")){
+            Toast.makeText(this, "Please enter a location", Toast.LENGTH_SHORT);
+        }
+
+        Meeting newMeeting= new Meeting(title,host,type,time, location);
         reference.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot snapshot) {
@@ -114,10 +144,11 @@ public class NewMeeting extends AppCompatActivity {
                     meetTitle.requestFocus();
                     return;
                 }else {
-                    reference.child("M: " + className + " meeting, " + title).child("type").setValue(type);
-                    reference.child("M: " + className + " meeting, " + title).child("title").setValue(title);
-                    reference.child("M: " + className + " meeting, " + title).child("userID").setValue(host);
-                    reference.child("M: " + className + " meeting, " + title).child("time").setValue(time);
+//                    reference.child("M: " + className + " meeting, " + title).child("type").setValue(type);
+//                    reference.child("M: " + className + " meeting, " + title).child("title").setValue(title);
+//                    reference.child("M: " + className + " meeting, " + title).child("userID").setValue(host);
+//                    reference.child("M: " + className + " meeting, " + title).child("time").setValue(time);
+                    reference.child("M: " + className + " meeting, " + title).setValue(newMeeting);
                     finish();
                     startActivity(new Intent(NewMeeting.this, ChooseMeetActivity.class));
                 }

@@ -18,6 +18,9 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Checkpoint3for5236">
         <activity
+            android:name=".InPersonMeetingActivity"
+            android:exported="true" />
+        <activity
             android:name=".OnlineMeeting"
             android:exported="false" />
         <!--

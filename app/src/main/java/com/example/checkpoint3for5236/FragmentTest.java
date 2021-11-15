@@ -41,6 +41,7 @@ public class FragmentTest extends AppCompatActivity implements OnMapReadyCallbac
     GoogleMap map;
     SupportMapFragment mapFragment;
     SearchView searchView;
+    private String locationName;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -48,6 +49,12 @@ public class FragmentTest extends AppCompatActivity implements OnMapReadyCallbac
         setContentView(R.layout.activity_fragment_test);
 
         searchView = findViewById(R.id.sv_location);
+        Bundle bundle = getIntent().getExtras();
+        locationName = bundle.getString("location");
+
+        searchView.setQuery(locationName, false);
+        searchView.clearFocus();
+
         mapFragment = (SupportMapFragment) getSupportFragmentManager().findFragmentById(R.id.google_map);
         searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override

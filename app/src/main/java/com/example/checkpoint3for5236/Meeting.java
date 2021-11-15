@@ -16,29 +16,33 @@ public class Meeting {
     // time of meeting
     Date time;
 
+    // location of meeting
+    String location;
+
     public Meeting(){
 
     }
 
-    public Meeting(String title, String host, String type,Date time) {
+    public Meeting(String title, String host, String type,Date time, String location) {
         this.title=title;
         this.host=host;
         this.type =type;
         this.time=time;
+        this.location = location;
     }
-    public String getMeetingTitle() {
+    public String getTitle() {
         return title;
     }
 
-    public String getMeetingHost() {
+    public String getHost() {
         return host;
     }
 
-    public String getMeetingType() {
+    public String getType() {
         return type;
     }
 
-    public Date getMeetingTime() {
+    public Date getTime() {
         return time;
     }
 
@@ -48,5 +52,17 @@ public class Meeting {
 
     public void setType(String type) {
         this.type = type;
+    }
+
+    public void setTime(Date time) {
+        this.time = time;
+    }
+
+    public String getLocation() {
+        return location;
+    }
+
+    public void setLocation(String location) {
+        this.location = location;
     }
 }
