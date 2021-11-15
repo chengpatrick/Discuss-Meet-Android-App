@@ -41,9 +41,10 @@
         android:layout_height="419dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.954"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.66" />
+        app:layout_constraintVertical_bias="0.153" />
 
     <EditText
         android:id="@+id/editTextTextPersonName"
@@ -61,9 +62,10 @@
         android:id="@+id/editTextTextPersonName2"
         android:layout_width="241dp"
         android:layout_height="52dp"
+        android:autofillHints="Enter Text Here"
         android:ems="10"
+        android:hint="Enter Text Here"
         android:inputType="textPersonName"
-        android:text="Name"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.335"
