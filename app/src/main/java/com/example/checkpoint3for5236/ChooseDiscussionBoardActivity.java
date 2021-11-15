@@ -48,7 +48,7 @@ public class ChooseDiscussionBoardActivity extends AppCompatActivity {
         Log.i(TAG, "onCreate");
         setContentView(R.layout.activity_choose_discussion_board);
 
-        createList();
+
         //buildRecyclerView();
 
 
@@ -218,7 +218,7 @@ public class ChooseDiscussionBoardActivity extends AppCompatActivity {
     @Override
     protected void onResume() {
         super.onResume();
-
+        createList();
         Log.i(TAG, "onResume");
     }
 
