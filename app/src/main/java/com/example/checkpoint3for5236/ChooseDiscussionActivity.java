@@ -36,19 +36,6 @@ public class ChooseDiscussionActivity extends AppCompatActivity {
         RecyclerView recyclerView = findViewById(R.id.recyclerview);
 
         List<Item> items = new ArrayList<Item>();
-//        items.add(new Item("About HW1","I have a question about the first pro..."));
-//        items.add(new Item("About HW2","I have a question about the first pro..."));
-//        items.add(new Item("About HW3","I have a question about the first pro..."));
-//        items.add(new Item("About HW4","I have a question about the first pro..."));
-//        items.add(new Item("About HW5","I have a question about the first pro..."));
-//        items.add(new Item("About HW6","I have a question about the first pro..."));
-//        items.add(new Item("About HW1","I have a question about the first pro..."));
-//        items.add(new Item("About HW2","I have a question about the first pro..."));
-//        items.add(new Item("About HW3","I have a question about the first pro..."));
-//        items.add(new Item("About HW4","I have a question about the first pro..."));
-//        items.add(new Item("About HW5","I have a question about the first pro..."));
-//        items.add(new Item("About HW6","I have a question about the first pro..."));
-
 
         recyclerView.setLayoutManager(new LinearLayoutManager(this
         ));
