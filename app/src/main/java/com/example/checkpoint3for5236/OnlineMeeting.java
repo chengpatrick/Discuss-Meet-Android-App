@@ -23,6 +23,9 @@ import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Collection;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.Date;
 
 public class OnlineMeeting extends AppCompatActivity {
@@ -55,6 +58,9 @@ public class OnlineMeeting extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_online_meeting);
+
+        this.mHandler = new Handler();
+        this.mHandler.postDelayed(m_Runnable,5000);
 
         mAuth=FirebaseAuth.getInstance();
         rView = findViewById(R.id.recyclerViewOnlineMeeting);
@@ -153,6 +159,7 @@ public class OnlineMeeting extends AppCompatActivity {
 //                    Log.i(TAG, className);
 //                    Log.i(TAG, "Items: " + items.toString());
                 }
+                Collections.sort(items, new CustomComparator());
                 buildRecyclerView(items);
             }
 
@@ -170,6 +177,13 @@ public class OnlineMeeting extends AppCompatActivity {
 
         rView.setLayoutManager(mLayoutManager);
         rView.setAdapter(mAdapter);
+    }
+
+    public class CustomComparator implements Comparator<MeetingContext> {
+        @Override
+        public int compare(MeetingContext o1, MeetingContext o2) {
+            return o1.getTime().compareTo(o2.getTime());
+        }
     }
 
     private final Runnable m_Runnable = new Runnable()
@@ -194,7 +208,7 @@ public class OnlineMeeting extends AppCompatActivity {
     @Override
     protected void onPause() {
         super.onPause();
-        mHandler.removeCallbacks(m_Runnable);
+        //mHandler.removeCallbacks(m_Runnable);
         finish();
     }
 
