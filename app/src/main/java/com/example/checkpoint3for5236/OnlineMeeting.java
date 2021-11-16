@@ -64,6 +64,7 @@ public class OnlineMeeting extends AppCompatActivity {
         // set title as class name
         titleText=findViewById(R.id.editTextTextPersonName);
         titleText.setText(className+" "+title);
+        rView = findViewById(R.id.recyclerViewOnlineMeeting);
 
         // timer for meeting
 //        timeView=findViewById(R.id.editTextTime);
@@ -82,6 +83,11 @@ public class OnlineMeeting extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 context=sendContext.getText().toString();
+                if(context.equals("")){
+                    sendContext.setError("Cannot send empty context!");
+                    sendContext.requestFocus();
+                    return;
+                }
                 sendContext();
                 Log.i(TAG, context);
             }
@@ -97,7 +103,7 @@ public class OnlineMeeting extends AppCompatActivity {
                 finish();
             }
         });
-        sendContext();
+        //sendContext();
     }
 
     // send context to database
@@ -129,18 +135,20 @@ public class OnlineMeeting extends AppCompatActivity {
     }
 
     private void createList() {
-        DatabaseReference MeetConRef = FirebaseDatabase.getInstance().getReference("Classes").child(className).child("Meetings").child("M: "+className+" meeting, "+title).child("Reply by "+userName+" at "+time.toString());
+        DatabaseReference MeetConRef = FirebaseDatabase.getInstance().getReference("Classes").child(className).child("Meetings").child("M: "+className+" meeting, "+title);
 
-        items = new ArrayList<>();
+        items = new ArrayList<MeetingContext>();
 
         MeetConRef.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
 
                 for (DataSnapshot dsp: snapshot.getChildren()){
-                    MeetingContext currentContext = dsp.getValue(MeetingContext.class);
+                    if(dsp.hasChildren() && !dsp.getKey().equals("time")){
+                        MeetingContext currentContext = dsp.getValue(MeetingContext.class);
+                        items.add(currentContext);
+                    }
 //                    String className = currentClass.getClassname();
-                    items.add(currentContext);
 //                    Log.i(TAG, className);
 //                    Log.i(TAG, "Items: " + items.toString());
                 }

@@ -26,8 +26,12 @@ public class MeetingContext {
         return user;
     }
 
-    public String getMeetingContext() {
+    public String getContext() {
         return context;
+    }
+
+    public void setContext(String context) {
+        this.context = context;
     }
 
     public Date getTime(){
@@ -35,8 +39,6 @@ public class MeetingContext {
     }
 
     public void setUser(String user){ this.user = user; }
-
-    public void setMeetingContext(String context){ this.context = context; }
 
     public void setTime(Date time){ this.time = time; }
 

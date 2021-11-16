@@ -36,7 +36,7 @@
         app:layout_constraintVertical_bias="0.167" />
 
     <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/recyclerView2"
+        android:id="@+id/recyclerViewOnlineMeeting"
         android:layout_width="238dp"
         android:layout_height="385dp"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -81,6 +81,6 @@
         android:text="Send"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/recyclerView2"
+        app:layout_constraintTop_toBottomOf="@+id/recyclerViewOnlineMeeting"
         app:layout_constraintVertical_bias="0.52" />
 </androidx.constraintlayout.widget.ConstraintLayout>
