@@ -7,12 +7,6 @@ public class Discussion {
 
     }
 
-    public Discussion(String title, String mainText, String userID) {
-        this.title = title;
-        this.mainText = mainText;
-        this.userID = userID;
-    }
-
     public String getTitle() {
         return title;
     }
@@ -33,7 +27,14 @@ public class Discussion {
         return userID;
     }
 
-    public void setUserName(String userID) {
+    public void setUserID(String userID) {
         this.userID = userID;
     }
+
+    public Discussion(String title, String mainText, String userID) {
+        this.title = title;
+        this.mainText = mainText;
+        this.userID = userID;
+    }
+
 }
