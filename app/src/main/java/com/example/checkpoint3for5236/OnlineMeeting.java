@@ -12,6 +12,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
@@ -56,7 +57,7 @@ public class OnlineMeeting extends AppCompatActivity {
         setContentView(R.layout.activity_online_meeting);
 
         mAuth=FirebaseAuth.getInstance();
-        rView = findViewById(R.id.recyclerView2);
+        rView = findViewById(R.id.recyclerViewOnlineMeeting);
         Bundle bundle = getIntent().getExtras();
 
         className = bundle.getString("classname");
@@ -171,16 +172,17 @@ public class OnlineMeeting extends AppCompatActivity {
         rView.setAdapter(mAdapter);
     }
 
-//    private final Runnable m_Runnable = new Runnable()
-//    {
-//        public void run()
-//
-//        {
-//            // Toast.makeText(OnlineMeeting.this,"in runnable",Toast.LENGTH_SHORT).show();
-//            OnlineMeeting.this.mHandler.postDelayed(m_Runnable, 5000);
-//        }
-//
-//    };//runnable
+    private final Runnable m_Runnable = new Runnable()
+    {
+        public void run()
+
+        {
+            //Toast.makeText(OnlineMeeting.this,"in runnable",Toast.LENGTH_SHORT).show();
+            createList();
+            OnlineMeeting.this.mHandler.postDelayed(m_Runnable, 5000);
+        }
+
+    };//runnable
 
     @Override
     protected void onResume() {
@@ -192,7 +194,7 @@ public class OnlineMeeting extends AppCompatActivity {
     @Override
     protected void onPause() {
         super.onPause();
-        //mHandler.removeCallbacks(m_Runnable);
+        mHandler.removeCallbacks(m_Runnable);
         finish();
     }
 
