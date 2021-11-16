@@ -136,9 +136,6 @@ public class OnlineMeeting extends AppCompatActivity {
 
             }
         });
-
-
-
     }
 
     private void createList() {
@@ -208,8 +205,7 @@ public class OnlineMeeting extends AppCompatActivity {
     @Override
     protected void onPause() {
         super.onPause();
-        //mHandler.removeCallbacks(m_Runnable);
+        mHandler.removeCallbacks(m_Runnable);
         finish();
     }
-
 }

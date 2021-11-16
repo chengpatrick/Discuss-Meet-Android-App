@@ -42,7 +42,6 @@ public class MainActivity extends AppCompatActivity {
         TextView signUp = (TextView) findViewById(R.id.textView3);
 
         Button loginbtn=(Button)  findViewById(R.id.signinButton);
-        Button fragmenttest=(Button) findViewById(R.id.button);
 
         editTextEmail = (EditText) findViewById(R.id.editTextTextEmailAddress2);
         editTextPassword = (EditText) findViewById(R.id.editTextTextPassword3);
@@ -71,13 +70,6 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 startActivity(new Intent(MainActivity.this, SignUpActivity.class));
-            }
-        });
-
-        fragmenttest.setOnClickListener(new View.OnClickListener(){
-            @Override
-            public void onClick(View view){
-                startActivity(new Intent(MainActivity.this, InPersonMeetingActivity.class));
             }
         });
 
