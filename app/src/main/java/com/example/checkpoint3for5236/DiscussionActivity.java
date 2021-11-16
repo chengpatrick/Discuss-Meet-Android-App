@@ -2,6 +2,8 @@ package com.example.checkpoint3for5236;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import android.nfc.Tag;
 import android.os.Bundle;
@@ -19,7 +21,10 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
+import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.Date;
 
 public class DiscussionActivity extends AppCompatActivity {
@@ -27,15 +32,28 @@ public class DiscussionActivity extends AppCompatActivity {
     private static final  String TAG="DiscussionActivity";
     private TextView currentClass, title, mainText;
     private EditText replyText;
-    private String context, titleStr, userName;
-    Button replyBtn;
+    private String context, titleStr, userName, currentClassStr;
+    Button replyBtn, refreshBtn;
     private DatabaseReference mDatabase;
+    RecyclerView rView;
+
+    private ArrayList<MeetingContext> items;
+    private RecyclerView.LayoutManager mLayoutManager;
+    private MeetingContextAdapter mAdapter;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_discussion);
+        refreshBtn = (Button)findViewById(R.id.buttonRefresh);
+        refreshBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                createList();
+            }
+        });
+        rView = findViewById(R.id.recyclerView3);
         Bundle bundle = getIntent().getExtras();
-        String currentClassStr = bundle.getString("classname");
+        currentClassStr = bundle.getString("classname");
         titleStr = bundle.getString("title");
 /*        String mainTextStr = bundle.getString("mainText");*/
         mDatabase = FirebaseDatabase.getInstance().getReference("Classes").child(currentClassStr).child("Discussions").child("D: " + titleStr);
@@ -99,7 +117,7 @@ public class DiscussionActivity extends AppCompatActivity {
         mDatabase.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
-               mDatabase.child("Replies").child("Reply by " + userName).setValue(meetCon);
+               mDatabase.child("Replies").child("At " + meetCon.time.getTime() + ", Replied by " + userName).setValue(meetCon);
                replyText.setText("");
             }
 
@@ -109,4 +127,52 @@ public class DiscussionActivity extends AppCompatActivity {
             }
         });
     }
+
+    private void createList() {
+        DatabaseReference MeetConRef = mDatabase.child("Replies");
+
+        items = new ArrayList<MeetingContext>();
+
+        MeetConRef.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                for (DataSnapshot dsp: snapshot.getChildren()){
+                    if(dsp.hasChildren() && !dsp.getKey().equals("time")){
+                        MeetingContext currentContext = dsp.getValue(MeetingContext.class);
+                        items.add(currentContext);
+                    }
+                }
+                Collections.sort(items, new CustomComparator());
+                buildRecyclerView(items);
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
+    }
+    private void buildRecyclerView(ArrayList<MeetingContext> items) {
+        rView.setHasFixedSize(true);
+        mLayoutManager = new LinearLayoutManager(this);
+        mAdapter = new MeetingContextAdapter(items);
+
+        rView.setLayoutManager(mLayoutManager);
+        rView.setAdapter(mAdapter);
+    }
+
+
+    public class CustomComparator implements Comparator<MeetingContext> {
+        @Override
+        public int compare(MeetingContext o1, MeetingContext o2) {
+            return o1.getTime().compareTo(o2.getTime());
+        }
+    }
+    @Override
+    protected void onResume() {
+        super.onResume();
+        createList();
+        Log.i(TAG, "onResume");
+    }
+
 }
