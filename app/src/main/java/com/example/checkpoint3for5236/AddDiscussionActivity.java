@@ -72,7 +72,9 @@ public class AddDiscussionActivity extends AppCompatActivity {
                 }else{
                     reference.child("D: " + title).setValue(newDiscussion);
                     finish();
-                    startActivity(new Intent(AddDiscussionActivity.this, ChooseDiscussionActivity.class));
+                    Intent i = new Intent(AddDiscussionActivity.this, ChooseDiscussionActivity.class);
+                    i.putExtra("classname", currentClassName);
+                    startActivity(i);
                 }
             }
 

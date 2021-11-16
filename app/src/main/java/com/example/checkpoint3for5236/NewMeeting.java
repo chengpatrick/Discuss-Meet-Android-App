@@ -152,7 +152,9 @@ public class NewMeeting extends AppCompatActivity {
 //                    reference.child("M: " + className + " meeting, " + title).child("time").setValue(time);
                     reference.child("M: " + className + " meeting, " + title).setValue(newMeeting);
                     finish();
-                    startActivity(new Intent(NewMeeting.this, ChooseMeetActivity.class));
+                    Intent i = new Intent(NewMeeting.this, ChooseMeetActivity.class);
+                    i.putExtra("classname", className);
+                    startActivity(i);
                 }
             }
 
