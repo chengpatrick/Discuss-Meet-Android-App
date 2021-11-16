@@ -2,6 +2,7 @@ package com.example.checkpoint3for5236;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
@@ -11,7 +12,6 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
@@ -23,8 +23,6 @@ import com.google.firebase.database.ValueEventListener;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
-import java.util.Timer;
-import java.util.TimerTask;
 
 public class OnlineMeeting extends AppCompatActivity {
 
@@ -36,6 +34,7 @@ public class OnlineMeeting extends AppCompatActivity {
 
     String className, title;
     String context;
+    String userName;
 
     private TextView titleText,sendContext,timeView;
     private Button sendBtn,quitBtn;
@@ -46,21 +45,19 @@ public class OnlineMeeting extends AppCompatActivity {
     RecyclerView rView;
 
     private ArrayList<MeetingContext> items;
+    private RecyclerView.LayoutManager mLayoutManager;
+    private MeetingContextAdapter mAdapter;
+
+    Date time;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_online_meeting);
 
-
-        this.mHandler = new Handler();
-        this.mHandler.postDelayed(m_Runnable,5000);
-
         mAuth=FirebaseAuth.getInstance();
 
         Bundle bundle = getIntent().getExtras();
-
-        rView=findViewById(R.id.recyclerView2);
 
         className = bundle.getString("classname");
         title=bundle.getString("title");
@@ -100,7 +97,7 @@ public class OnlineMeeting extends AppCompatActivity {
                 finish();
             }
         });
-
+        sendContext();
     }
 
     // send context to database
@@ -108,15 +105,15 @@ public class OnlineMeeting extends AppCompatActivity {
         rootNode = FirebaseDatabase.getInstance();
         reference = rootNode.getReference("Classes").child(className).child("Meetings").child("M: "+className+" meeting, "+title);
 
-        String userName= mAuth.getCurrentUser().getUid();
-        Date time= Calendar.getInstance().getTime();
+        userName= mAuth.getCurrentUser().getUid();
+        time= Calendar.getInstance().getTime();
 
         MeetingContext meetCon=new MeetingContext(userName,context,time);
 
         reference.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot snapshot) {
-                    reference.child("Reply by"+userName).setValue(meetCon);
+                    reference.child("Reply by "+userName+" at "+time.toString()).setValue(meetCon);
                     // empty the context box once sent
                     sendContext.setText("");
                 }
@@ -131,21 +128,63 @@ public class OnlineMeeting extends AppCompatActivity {
 
     }
 
-    private final Runnable m_Runnable = new Runnable()
-    {
-        public void run()
+    private void createList() {
+        DatabaseReference MeetConRef = FirebaseDatabase.getInstance().getReference("Classes").child(className).child("Meetings").child("M: "+className+" meeting, "+title).child("Reply by "+userName+" at "+time.toString());
 
-        {
-            // Toast.makeText(OnlineMeeting.this,"in runnable",Toast.LENGTH_SHORT).show();
-            OnlineMeeting.this.mHandler.postDelayed(m_Runnable, 5000);
-        }
+        items = new ArrayList<>();
 
-    };//runnable
+        MeetConRef.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+
+                for (DataSnapshot dsp: snapshot.getChildren()){
+                    MeetingContext currentContext = dsp.getValue(MeetingContext.class);
+//                    String className = currentClass.getClassname();
+                    items.add(currentContext);
+//                    Log.i(TAG, className);
+//                    Log.i(TAG, "Items: " + items.toString());
+                }
+                buildRecyclerView(items);
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
+    }
+
+    private void buildRecyclerView(ArrayList<MeetingContext> items) {
+        rView.setHasFixedSize(true);
+        mLayoutManager = new LinearLayoutManager(this);
+        mAdapter = new MeetingContextAdapter(items);
+
+        rView.setLayoutManager(mLayoutManager);
+        rView.setAdapter(mAdapter);
+    }
+
+//    private final Runnable m_Runnable = new Runnable()
+//    {
+//        public void run()
+//
+//        {
+//            // Toast.makeText(OnlineMeeting.this,"in runnable",Toast.LENGTH_SHORT).show();
+//            OnlineMeeting.this.mHandler.postDelayed(m_Runnable, 5000);
+//        }
+//
+//    };//runnable
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        createList();
+        Log.i(TAG, "onResume");
+    }
 
     @Override
     protected void onPause() {
         super.onPause();
-        mHandler.removeCallbacks(m_Runnable);
+        //mHandler.removeCallbacks(m_Runnable);
         finish();
     }
 

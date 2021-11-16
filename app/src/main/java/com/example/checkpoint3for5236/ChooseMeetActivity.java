@@ -123,13 +123,15 @@ public class ChooseMeetActivity extends AppCompatActivity {
             public void onItemClick(int position) {
                 enterMeeting(position);
                 // Pass a value to next activity
-                Intent i = new Intent(ChooseMeetActivity.this,OnlineMeeting.class);
-                String MeetingTitle = items.get(position).getTitle();
-                Bundle bundle = new Bundle();
-                bundle.putString("classname", className);
-                bundle.putString("title", MeetingTitle);
-                i.putExtras(bundle);
-                startActivity(i);
+                if(items.get(position).getType().equals("Online")) {
+                    Intent i = new Intent(ChooseMeetActivity.this, OnlineMeeting.class);
+                    String MeetingTitle = items.get(position).getTitle();
+                    Bundle bundle = new Bundle();
+                    bundle.putString("classname", className);
+                    bundle.putString("title", MeetingTitle);
+                    i.putExtras(bundle);
+                    startActivity(i);
+                }
             }
         });
     }

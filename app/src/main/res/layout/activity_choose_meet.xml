@@ -34,15 +34,15 @@
 
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/recyclerview99"
-                android:layout_width="316dp"
-                android:layout_height="354dp"
+                android:layout_width="278dp"
+                android:layout_height="304dp"
                 android:background="#00FFFFFF"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.294"
+                app:layout_constraintHorizontal_bias="0.233"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintVertical_bias="0.594" />
+                app:layout_constraintVertical_bias="0.615" />
 
             <TextView
                 android:id="@+id/textView12"
