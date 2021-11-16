@@ -57,8 +57,7 @@ public class ChooseDiscussionOrMeetingActivity extends AppCompatActivity {
                     public void onClick(View view) {
                         Intent i = new Intent(ChooseDiscussionOrMeetingActivity.this, ChooseDiscussionActivity.class);
                         Bundle bundle1 = new Bundle();
-                        bundle1.putString("classname", className);
-                        i.putExtras(bundle1);
+                        i.putExtra("classname", className);
                         startActivity(i);
                     }
                 }

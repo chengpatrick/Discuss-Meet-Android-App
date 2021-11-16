@@ -39,7 +39,7 @@ public class ChooseDiscussionActivity extends AppCompatActivity {
         setContentView(R.layout.activity_choose_discussion);
         Bundle bundle = getIntent().getExtras();
 
-        String className = bundle.getString("classname");
+        className = bundle.getString("classname");
 
         titleText=findViewById(R.id.textView4);
         titleText.setText(className.toUpperCase(Locale.ROOT)+" Discussions");
@@ -49,7 +49,6 @@ public class ChooseDiscussionActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 Intent i = new Intent(ChooseDiscussionActivity.this, AddDiscussionActivity.class);
-                Bundle bundle = new Bundle();
                 bundle.putString("classname", className);
                 i.putExtras(bundle);
                 startActivity(i);
@@ -117,10 +116,8 @@ public class ChooseDiscussionActivity extends AppCompatActivity {
                 // Pass a value to next activity
                 Intent i = new Intent(ChooseDiscussionActivity.this, DiscussionActivity.class);
                 String DiscussionTitle = items.get(position).getTitle();
-                Bundle bundle = new Bundle();
-                bundle.putString("classname", className);
-                bundle.putString("title", DiscussionTitle);
-                i.putExtras(bundle);
+                i.putExtra("classname", className);
+                i.putExtra("title", DiscussionTitle);
                 startActivity(i);
             }
         });

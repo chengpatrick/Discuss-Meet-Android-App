@@ -3,6 +3,7 @@ package com.example.checkpoint3for5236;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -69,9 +70,9 @@ public class AddDiscussionActivity extends AppCompatActivity {
                     titleText.requestFocus();
                     return;
                 }else{
-                    reference.child("D: " + title).child("title").setValue(title);
-                    reference.child("D: " + title).child("mainTexts").setValue(mainTexts);
-                    reference.child("D: " + title).child("userID").setValue(userID);
+                    reference.child("D: " + title).setValue(newDiscussion);
+                    finish();
+                    startActivity(new Intent(AddDiscussionActivity.this, ChooseDiscussionActivity.class));
                 }
             }
 

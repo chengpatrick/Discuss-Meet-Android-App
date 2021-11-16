@@ -56,7 +56,7 @@ public class OnlineMeeting extends AppCompatActivity {
         setContentView(R.layout.activity_online_meeting);
 
         mAuth=FirebaseAuth.getInstance();
-
+        rView = findViewById(R.id.recyclerView2);
         Bundle bundle = getIntent().getExtras();
 
         className = bundle.getString("classname");
