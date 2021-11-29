@@ -17,12 +17,10 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseUser;
 
 public class MainActivity extends AppCompatActivity {
     private static final  String TAG="MainActivity";
@@ -47,7 +45,7 @@ public class MainActivity extends AppCompatActivity {
         Button loginbtn=(Button)  findViewById(R.id.signinButton);
 
         editTextEmail = (EditText) findViewById(R.id.editTextTextEmailAddress2);
-        editTextPassword = (EditText) findViewById(R.id.editTextTextPassword3);
+        editTextPassword = (EditText) findViewById(R.id.editTextTextEmailAddress);
 
         mAuth = FirebaseAuth.getInstance();
 

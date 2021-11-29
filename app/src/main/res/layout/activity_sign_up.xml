@@ -82,8 +82,8 @@
     <ProgressBar
         android:id="@+id/progressBar2"
         style="?android:attr/progressBarStyle"
-        android:layout_width="81dp"
-        android:layout_height="69dp"
+        android:layout_width="5dp"
+        android:layout_height="5dp"
         android:visibility="gone"
         app:layout_constraintBottom_toTopOf="@+id/signinButton"
         app:layout_constraintEnd_toEndOf="parent"
