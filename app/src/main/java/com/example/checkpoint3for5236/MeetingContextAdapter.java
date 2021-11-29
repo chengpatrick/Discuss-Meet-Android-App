@@ -29,7 +29,6 @@ public class MeetingContextAdapter extends RecyclerView.Adapter<MeetingContextAd
         public MeetingViewHolder(View itemView, final MeetingContextAdapter.OnItemClickListener listener) {
             super(itemView);
             mTextView1 = itemView.findViewById(R.id.textView);
-//            button = itemView.findViewById(R.id.buttonView);
 
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override

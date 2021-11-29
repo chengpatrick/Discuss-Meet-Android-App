@@ -146,10 +146,6 @@ public class NewMeeting extends AppCompatActivity {
                     meetTitle.requestFocus();
                     return;
                 }else {
-//                    reference.child("M: " + className + " meeting, " + title).child("type").setValue(type);
-//                    reference.child("M: " + className + " meeting, " + title).child("title").setValue(title);
-//                    reference.child("M: " + className + " meeting, " + title).child("userID").setValue(host);
-//                    reference.child("M: " + className + " meeting, " + title).child("time").setValue(time);
                     reference.child("M: " + className + " meeting, " + title).setValue(newMeeting);
                     finish();
                     Intent i = new Intent(NewMeeting.this, ChooseMeetActivity.class);
@@ -164,5 +160,4 @@ public class NewMeeting extends AppCompatActivity {
             }
         });
     }
-
 }

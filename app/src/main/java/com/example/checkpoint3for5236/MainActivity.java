@@ -53,15 +53,6 @@ public class MainActivity extends AppCompatActivity {
         loginbtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-//                if(username.getText().toString().equals("admin")&& password.getText().toString().equals("admin")){
-//                    //correct password
-//                    Toast.makeText(MainActivity.this,"Login Successful",Toast.LENGTH_SHORT).show();
-//                    startActivity(new Intent(MainActivity.this, ChooseDiscussionBoardActivity.class));
-//                }
-//                else{
-//                    //incorrect password
-//                    Toast.makeText(MainActivity.this,"Login Fail, please check username or password",Toast.LENGTH_SHORT).show();
-//                }
                 userLogin();
             }
         });
@@ -109,8 +100,6 @@ public class MainActivity extends AppCompatActivity {
             return;
         }
 
-        //progressBar.setVisibility(View.VISIBLE);
-
         mAuth.signInWithEmailAndPassword(email, password).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
             @Override
             public void onComplete(@NonNull Task<AuthResult> task) {
@@ -124,40 +113,4 @@ public class MainActivity extends AppCompatActivity {
         });
 
     }
-
-    @Override
-    protected void onStart() {
-        super.onStart();
-
-        Log.i(TAG, "onStart");
-    }
-
-    @Override
-    protected void onResume() {
-        super.onResume();
-
-        Log.i(TAG, "onResume");
-    }
-
-    @Override
-    protected void onPause(){
-        super.onPause();
-
-        Log.i(TAG, "onPause");
-    }
-
-    @Override
-    protected void onStop(){
-        super.onStop();
-
-        Log.i(TAG, "onStop");
-    }
-
-    @Override
-    protected void onDestroy(){
-        super.onDestroy();
-
-        Log.i(TAG, "onDestroy");
-    }
-
 }

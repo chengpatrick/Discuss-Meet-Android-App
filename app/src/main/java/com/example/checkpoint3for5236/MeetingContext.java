@@ -14,7 +14,6 @@ public class MeetingContext {
     Date time;
 
     public MeetingContext(){
-
     }
 
     public MeetingContext(String user, String context,Date time) {

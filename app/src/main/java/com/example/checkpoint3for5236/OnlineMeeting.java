@@ -42,7 +42,6 @@ public class OnlineMeeting extends AppCompatActivity {
 
     private TextView titleText,sendContext,timeView;
     private Button sendBtn,quitBtn;
-    private int count=0;
 
     Handler mHandler;
 
@@ -73,32 +72,21 @@ public class OnlineMeeting extends AppCompatActivity {
         titleText.setText(className+" "+title);
         rView = findViewById(R.id.recyclerViewOnlineMeeting);
 
-        // timer for meeting
-//        timeView=findViewById(R.id.editTextTime);
-//        Timer T=new Timer();
-//        T.scheduleAtFixedRate(new TimerTask() {
-//            @Override
-//            public void run() {
-//                timeView.setText(count);
-//                count++;
-//            }
-//        }, 1000, 1000);
-
         sendBtn=findViewById(R.id.button7);
         sendContext=findViewById(R.id.editTextTextPersonName2);
         sendBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                context=sendContext.getText().toString();
-                if(context.equals("")){
-                    sendContext.setError("Cannot send empty context!");
-                    sendContext.requestFocus();
-                    return;
-                }
-                sendContext();
-                Log.i(TAG, context);
-            }
-        }
+                                       @Override
+                                       public void onClick(View view) {
+                                           context=sendContext.getText().toString();
+                                           if(context.equals("")){
+                                               sendContext.setError("Cannot send empty context!");
+                                               sendContext.requestFocus();
+                                               return;
+                                           }
+                                           sendContext();
+                                           Log.i(TAG, context);
+                                       }
+                                   }
         );
 
         // button to quit meeting
@@ -110,7 +98,6 @@ public class OnlineMeeting extends AppCompatActivity {
                 finish();
             }
         });
-        //sendContext();
     }
 
     // send context to database
@@ -126,10 +113,10 @@ public class OnlineMeeting extends AppCompatActivity {
         reference.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot snapshot) {
-                    reference.child("Reply by "+userName+" at "+time.toString()).setValue(meetCon);
-                    // empty the context box once sent
-                    sendContext.setText("");
-                }
+                reference.child("Reply by "+userName+" at "+time.toString()).setValue(meetCon);
+                // empty the context box once sent
+                sendContext.setText("");
+            }
 
             @Override
             public void onCancelled(@NonNull DatabaseError error) {
@@ -152,9 +139,6 @@ public class OnlineMeeting extends AppCompatActivity {
                         MeetingContext currentContext = dsp.getValue(MeetingContext.class);
                         items.add(currentContext);
                     }
-//                    String className = currentClass.getClassname();
-//                    Log.i(TAG, className);
-//                    Log.i(TAG, "Items: " + items.toString());
                 }
                 Collections.sort(items, new CustomComparator());
                 buildRecyclerView(items);
@@ -188,7 +172,6 @@ public class OnlineMeeting extends AppCompatActivity {
         public void run()
 
         {
-            //Toast.makeText(OnlineMeeting.this,"in runnable",Toast.LENGTH_SHORT).show();
             createList();
             OnlineMeeting.this.mHandler.postDelayed(m_Runnable, 5000);
         }
@@ -199,7 +182,6 @@ public class OnlineMeeting extends AppCompatActivity {
     protected void onResume() {
         super.onResume();
         createList();
-        Log.i(TAG, "onResume");
     }
 
     @Override
