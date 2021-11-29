@@ -3,7 +3,6 @@ package com.example.checkpoint3for5236;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.TextView;
 
 import androidx.recyclerview.widget.RecyclerView;
@@ -24,12 +23,10 @@ public class ClassAdapter extends RecyclerView.Adapter<ClassAdapter.ClassViewHol
 
     public static class ClassViewHolder extends RecyclerView.ViewHolder {
         public TextView mTextView1;
-        //public Button button;
 
         public ClassViewHolder(View itemView, final OnItemClickListener listener) {
             super(itemView);
             mTextView1 = itemView.findViewById(R.id.textView);
-//            button = itemView.findViewById(R.id.buttonView);
 
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -52,8 +49,7 @@ public class ClassAdapter extends RecyclerView.Adapter<ClassAdapter.ClassViewHol
     @Override
     public ClassViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.class_item, parent, false);
-        ClassViewHolder evh = new ClassViewHolder(v, mListener);
-        return evh;
+        return new ClassViewHolder(v, mListener);
     }
 
     @Override

@@ -81,76 +81,9 @@ public class FragmentTest extends AppCompatActivity implements OnMapReadyCallbac
                 return false;
             }
         });
-        //checkMyPermission();
-//        if (savedInstanceState == null) {
-//            getSupportFragmentManager().beginTransaction()
-//                    .setReorderingAllowed(true)
-//                    .add(R.id.fragmentContainerView3, MapsFragment.class, null)
-//                    .commit();
-//        }
+
         mapFragment.getMapAsync(this);
         Log.i(TAG,"onCreate");
-    }
-
-    // get user's permission
-    private void checkMyPermission(){
-        Dexter.withContext(this).withPermission(Manifest.permission.ACCESS_FINE_LOCATION).withListener(new PermissionListener() {
-            @Override
-            public void onPermissionGranted(PermissionGrantedResponse permissionGrantedResponse) {
-                Toast.makeText(FragmentTest.this, "Permission Granted", Toast.LENGTH_SHORT).show();
-                //isPermissionGranted = true;
-            }
-
-            @Override
-            public void onPermissionDenied(PermissionDeniedResponse permissionDeniedResponse) {
-                Intent intent = new Intent();
-                intent.setAction(Settings.ACTION_ACCESSIBILITY_SETTINGS);
-                Uri uri = Uri.fromParts("package", getPackageName(), "");
-                intent.setData(uri);
-                startActivity(intent);
-            }
-
-            @Override
-            public void onPermissionRationaleShouldBeShown(PermissionRequest permissionRequest, PermissionToken permissionToken) {
-                permissionToken.continuePermissionRequest();
-
-            }
-        }).check();
-    }
-
-    @Override
-    protected void onStart() {
-        super.onStart();
-
-        Log.i(TAG, "onStart");
-    }
-
-    @Override
-    protected void onResume() {
-        super.onResume();
-
-        Log.i(TAG, "onResume");
-    }
-
-    @Override
-    protected void onPause(){
-        super.onPause();
-
-        Log.i(TAG, "onPause");
-    }
-
-    @Override
-    protected void onStop(){
-        super.onStop();
-
-        Log.i(TAG, "onStop");
-    }
-
-    @Override
-    protected void onDestroy(){
-        super.onDestroy();
-
-        Log.i(TAG, "onDestroy");
     }
 
     @Override

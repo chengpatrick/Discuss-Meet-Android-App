@@ -46,11 +46,6 @@ public class InPersonMeetingActivity extends AppCompatActivity {
         className = bundle.getString("classname");
         childName = bundle.getString("childname");
 
-
-//        className = "Test";
-//        childName = "M: Test meeting, Sleep";
-//        meetingText.setText(className + " In-Person Meeting");
-
         DatabaseReference ref = FirebaseDatabase.getInstance().getReference("Classes").child(className).child("Meetings").child(childName);
         ref.addValueEventListener(new ValueEventListener() {
             @Override

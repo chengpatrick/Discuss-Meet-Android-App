@@ -5,7 +5,6 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import android.nfc.Tag;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -55,7 +54,6 @@ public class DiscussionActivity extends AppCompatActivity {
         Bundle bundle = getIntent().getExtras();
         currentClassStr = bundle.getString("classname");
         titleStr = bundle.getString("title");
-/*        String mainTextStr = bundle.getString("mainText");*/
         mDatabase = FirebaseDatabase.getInstance().getReference("Classes").child(currentClassStr).child("Discussions").child("D: " + titleStr);
         currentClass = findViewById(R.id.textViewCurrentClass);
         title = findViewById(R.id.textViewDisTitle);

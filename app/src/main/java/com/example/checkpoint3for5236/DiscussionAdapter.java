@@ -23,12 +23,10 @@ public class DiscussionAdapter extends RecyclerView.Adapter<DiscussionAdapter.Di
 
     public static class DiscussionViewHolder extends RecyclerView.ViewHolder {
         public TextView mTextView1;
-        //public Button button;
 
         public DiscussionViewHolder(View itemView, final OnItemClickListener listener) {
             super(itemView);
             mTextView1 = itemView.findViewById(R.id.textView);
-//            button = itemView.findViewById(R.id.buttonView);
 
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
