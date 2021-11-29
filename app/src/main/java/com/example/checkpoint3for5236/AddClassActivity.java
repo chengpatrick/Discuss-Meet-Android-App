@@ -33,21 +33,20 @@ public class AddClassActivity extends AppCompatActivity {
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                addClass();
+                addClass(classEditText.getText().toString());
             }
         });
     }
 
-    private void addClass(){
+    private Class addClass(String classname){
         rootNode = FirebaseDatabase.getInstance();
         reference = rootNode.getReference("Classes");
 
-        String classname = classEditText.getText().toString();
 
         if (classname.isEmpty()) {
             classEditText.setError("Class name is required");
             classEditText.requestFocus();
-            return;
+            return null;
         }
 
         Class newClass = new Class(classname);
@@ -62,7 +61,6 @@ public class AddClassActivity extends AppCompatActivity {
                     return;
                 }else{
                     reference.child(classname).setValue(newClass);
-
                 }
             }
 
@@ -71,7 +69,6 @@ public class AddClassActivity extends AppCompatActivity {
 
             }
         });
-
-
+        return newClass;
     }
 }
